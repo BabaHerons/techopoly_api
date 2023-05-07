@@ -16,4 +16,4 @@ db = SQLAlchemy(app)
 # now navigate into the instance folder (which is created be default)
 
 
-from src.routes import auth, teams, transactions, status
+from src.routes import auth, teams, transactions, status, assets, rewards, penalty
