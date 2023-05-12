@@ -33,7 +33,8 @@ class Profile_Pic(db.Model):
         return {
             "id": self.id,
             "team_id": self.team_id,
-            "profile_pic_filename": self.profile_pic_filename
+            "profile_pic_filename": self.profile_pic_filename,
+            # "profile_pic_data": self.profile_pic_data
         }
 
 

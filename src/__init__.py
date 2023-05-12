@@ -1,9 +1,11 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_restful import Api
+from flask_cors import CORS
 
 app = Flask(__name__)
 api = Api(app)
+CORS(app)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///techopoly.db"
 app.config['SECRET_KEY'] = 'lsfdsaf4s2e1fsef45d2f5e12sdf4%##BG67()&#6'
@@ -16,4 +18,4 @@ db = SQLAlchemy(app)
 # now navigate into the instance folder (which is created be default)
 
 
-from src.routes import auth, teams, transactions, status, assets, rewards, penalty
+from src.routes import auth, teams, transactions, status, assets, rewards, penalty, players

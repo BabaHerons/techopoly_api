@@ -12,7 +12,7 @@ new_transaction_args.add_argument("assets", type=str, help='Assets in transactio
 
 class Transactions_All(Resource):
     def get(self):
-        tran = [i.output for i in Transactions.query.all()]
+        tran = [i.output for i in Transactions.query.all()][-100:]
         return tran
 
 class Transaction(Resource):
