@@ -65,6 +65,7 @@ class Transactions(db.Model):
     assets = db.Column(db.String(), default = 'NONE')
     date = db.Column(db.String(), default=time.strftime("%d-%m-%y"), nullable=False)
     time = db.Column(db.String(), default=time.strftime("%H-%M-%S"), nullable=False)
+    message = db.Column(db.String())
 
     @property
     def output(self):
@@ -76,7 +77,8 @@ class Transactions(db.Model):
             "gain": self.gain,
             "loss": self.loss,
             "date": self.date,
-            "time": self.time
+            "time": self.time,
+            "message": self.message
         }
 
     def __gt__(self, Transactions):
@@ -93,6 +95,7 @@ class Status(db.Model):
     cash = db.Column(db.String(), nullable = True)
     assets = db.Column(db.String(), nullable = True, default = 'NONE')
     net_worth = db.Column(db.String(), nullable = True)
+    active = db.Column(db.String(), nullable = False, default = 'true')
 
     @property
     def output(self):
@@ -102,7 +105,8 @@ class Status(db.Model):
             "position": self.position,
             "cash": self.cash,
             "assets": self.assets,
-            "net_worth": self.net_worth
+            "net_worth": self.net_worth,
+            "active": self.active
         }
 
     def __gt__(self, Status):
@@ -117,7 +121,9 @@ class Assets(db.Model):
     name = db.Column(db.String())
     value = db.Column(db.String())
     rent_amount = db.Column(db.String())
-    current_owner = db.Column(db.String(), db.ForeignKey('teams.team_id'), default = 'NONE')
+    current_owner = db.Column(db.String(), db.ForeignKey('teams.team_id'), default = 'admin')
+    box_index = db.Column(db.Integer(), nullable = False, unique = True)
+    ques_level = db.Column(db.String())
 
     @property
     def output(self):
@@ -126,7 +132,9 @@ class Assets(db.Model):
             "name": self.name,
             "value": self.value,
             "rent_amount": self.rent_amount,
-            "current_owner": self.current_owner
+            "current_owner": self.current_owner,
+            "box_index": self.box_index,
+            "ques_level": self.ques_level
         }
 
 
