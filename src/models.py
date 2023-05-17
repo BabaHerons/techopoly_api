@@ -82,7 +82,7 @@ class Transactions(db.Model):
         }
 
     def __gt__(self, Transactions):
-        if self.time > Transactions.time:
+        if self.time > Transactions.time and self.date > Transactions.date:
             return True
         return False
 

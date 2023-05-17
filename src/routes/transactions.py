@@ -20,7 +20,7 @@ class Transaction(Resource):
     def get(self, team_id):
         tran = Transactions.query.filter_by(team_id = team_id).all()
         tran.sort()
-        result = [i.output for i in tran]
+        result = [i.output for i in tran][-100:]
         return result
 
 
@@ -49,11 +49,17 @@ class Transaction(Resource):
                 asset.current_owner = team_id
             elif asset and args['amount'] == 'NONE' and args['gain'] == 'false':
                 current_assets = status.assets.split(',')
-                updated_assets = ''
-                for i in current_assets:
-                    if i != asset.name:
-                        updated_assets += i + ', '
-                status.assets = updated_assets
+                current_assets.remove(asset.name)
+                if not current_assets:
+                    status.assets = 'NONE'
+                else:
+                    updated_assets = ''
+                    for i in current_assets:
+                        if current_assets.index(i) == (len(current_assets) - 1):
+                            updated_assets += i
+                        else:
+                            updated_assets += i + ', '
+                    status.assets = updated_assets
                 status.net_worth = str(int(status.net_worth) - int(asset.value))
                 asset.current_owner = 'admin'
             
