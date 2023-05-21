@@ -4,10 +4,10 @@ import time
 class Teams(db.Model):
     __tablename__ = 'teams'
     id = db.Column(db.Integer(), primary_key = True, nullable = False, unique = True)
-    team_id = db.Column(db.String(), nullable = False, unique = True)
-    name = db.Column(db.String(), nullable = False)
-    password = db.Column(db.String(), nullable = False)
-    role = db.Column(db.String(), nullable = False, default = 'user')
+    team_id = db.Column(db.String(1000), nullable = False, unique = True)
+    name = db.Column(db.String(1000), nullable = False)
+    password = db.Column(db.String(1000), nullable = False)
+    role = db.Column(db.String(1000), nullable = False, default = 'user')
     # profile_pic = db.Column(db.LargeBinary)
 
     @property
@@ -24,8 +24,8 @@ class Teams(db.Model):
 class Profile_Pic(db.Model):
     __tablename__ = 'profile_pic'
     id = db.Column(db.Integer(), primary_key = True, nullable = False, unique = True)
-    team_id = db.Column(db.String(), db.ForeignKey('teams.team_id'), nullable = False)
-    profile_pic_filename = db.Column(db.String(), nullable = False)
+    team_id = db.Column(db.String(1000), db.ForeignKey('teams.team_id'), nullable = False)
+    profile_pic_filename = db.Column(db.String(1000), nullable = False)
     profile_pic_data = db.Column(db.LargeBinary, nullable = False)
 
     @property
@@ -41,9 +41,9 @@ class Profile_Pic(db.Model):
 class Players(db.Model):
     __tablename__ = 'players'
     id = db.Column(db.Integer(), primary_key = True, nullable = False, unique = True)
-    name = db.Column(db.String(), nullable = False)
-    team_id = db.Column(db.String(), db.ForeignKey('teams.team_id'), nullable = False)
-    email = db.Column(db.String(), unique = True)
+    name = db.Column(db.String(1000), nullable = False)
+    team_id = db.Column(db.String(1000), db.ForeignKey('teams.team_id'), nullable = False)
+    email = db.Column(db.String(1000), unique = True)
 
     @property
     def output(self):
@@ -58,14 +58,14 @@ class Players(db.Model):
 class Transactions(db.Model):
     __tablename__ = 'transactions'
     id = db.Column(db.Integer(), primary_key = True, nullable = False, unique = True)
-    team_id = db.Column(db.String(), db.ForeignKey('teams.team_id'), nullable = False)
-    amount = db.Column(db.String(), nullable = False)
-    gain = db.Column(db.String(), nullable = True)
-    loss = db.Column(db.String(), nullable = True)
-    assets = db.Column(db.String(), default = 'NONE')
-    date = db.Column(db.String(), default=time.strftime("%d-%m-%y"), nullable=False)
-    time = db.Column(db.String(), default=time.strftime("%H-%M-%S"), nullable=False)
-    message = db.Column(db.String())
+    team_id = db.Column(db.String(1000), db.ForeignKey('teams.team_id'), nullable = False)
+    amount = db.Column(db.String(1000), nullable = False)
+    gain = db.Column(db.String(1000), nullable = True)
+    loss = db.Column(db.String(1000), nullable = True)
+    assets = db.Column(db.String(1000), default = 'NONE')
+    date = db.Column(db.String(1000), default=time.strftime("%d-%m-%y"), nullable=False)
+    time = db.Column(db.String(1000), default=time.strftime("%H-%M-%S"), nullable=False)
+    message = db.Column(db.String(1000))
 
     @property
     def output(self):
@@ -90,12 +90,12 @@ class Transactions(db.Model):
 class Status(db.Model):
     __tablename__ = 'status'
     id = db.Column(db.Integer(), primary_key = True, nullable = False, unique = True)
-    team_id = db.Column(db.String(), db.ForeignKey('teams.team_id'), nullable = False)
+    team_id = db.Column(db.String(1000), db.ForeignKey('teams.team_id'), nullable = False)
     position = db.Column(db.Integer(), nullable = False)
-    cash = db.Column(db.String(), nullable = True)
-    assets = db.Column(db.String(), nullable = True, default = 'NONE')
-    net_worth = db.Column(db.String(), nullable = True)
-    active = db.Column(db.String(), nullable = False, default = 'true')
+    cash = db.Column(db.String(1000), nullable = True)
+    assets = db.Column(db.String(1000), nullable = True, default = 'NONE')
+    net_worth = db.Column(db.String(1000), nullable = True)
+    active = db.Column(db.String(1000), nullable = False, default = 'true')
 
     @property
     def output(self):
@@ -118,12 +118,12 @@ class Status(db.Model):
 class Assets(db.Model):
     __tablename__ = 'assets'
     id = db.Column(db.Integer(), primary_key = True, nullable = False, unique = True)
-    name = db.Column(db.String())
-    value = db.Column(db.String())
-    rent_amount = db.Column(db.String())
-    current_owner = db.Column(db.String(), db.ForeignKey('teams.team_id'), default = 'admin')
+    name = db.Column(db.String(1000))
+    value = db.Column(db.String(1000))
+    rent_amount = db.Column(db.String(1000))
+    current_owner = db.Column(db.String(1000), db.ForeignKey('teams.team_id'), default = 'admin')
     box_index = db.Column(db.Integer(), nullable = False, unique = True)
-    ques_level = db.Column(db.String())
+    ques_level = db.Column(db.String(1000))
 
     @property
     def output(self):
@@ -141,8 +141,8 @@ class Assets(db.Model):
 class Penalty(db.Model):
     __tablename__ = 'penalty'
     id = db.Column(db.Integer(), primary_key = True, nullable = False, unique = True)
-    name = db.Column(db.String())
-    value = db.Column(db.String())
+    name = db.Column(db.String(1000))
+    value = db.Column(db.String(1000))
 
     @property
     def output(self):
@@ -156,8 +156,8 @@ class Penalty(db.Model):
 class Rewards(db.Model):
     __tablename__ = 'rewards'
     id = db.Column(db.Integer(), primary_key = True, nullable = False, unique = True)
-    name = db.Column(db.String())
-    value = db.Column(db.String())
+    name = db.Column(db.String(1000))
+    value = db.Column(db.String(1000))
 
     @property
     def output(self):

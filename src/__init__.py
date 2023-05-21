@@ -2,12 +2,17 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_restful import Api
 from flask_cors import CORS
+import os
 
 app = Flask(__name__)
 api = Api(app)
 CORS(app)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///techopoly.db"
+main_dir = os.path.abspath(os.path.dirname(__file__))
+dir = os.path.join(main_dir, 'DigiCertGlobalRootCA.crt.pem')
+
+# app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///techopoly.db"
+app.config['SQLALCHEMY_DATABASE_URI'] = f"mysql+pymysql://sweetcovet:Ul$k4445MmVv@techopoly-db.mysql.database.azure.com/techopoly?ssl_ca={dir}"
 app.config['SECRET_KEY'] = 'lsfdsaf4s2e1fsef45d2f5e12sdf4%##BG67()&#6'
 
 db = SQLAlchemy(app)
