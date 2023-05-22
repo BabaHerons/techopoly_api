@@ -96,6 +96,8 @@ class Status(db.Model):
     assets = db.Column(db.String(1000), nullable = True, default = 'NONE')
     net_worth = db.Column(db.String(1000), nullable = True)
     active = db.Column(db.String(1000), nullable = False, default = 'true')
+    rewards_ques = db.Column(db.String(1000))
+    coding_ques = db.Column(db.String(1000))
 
     @property
     def output(self):
@@ -106,7 +108,9 @@ class Status(db.Model):
             "cash": self.cash,
             "assets": self.assets,
             "net_worth": self.net_worth,
-            "active": self.active
+            "active": self.active,
+            "rewards_ques": self.rewards_ques,
+            "coding_ques": self.coding_ques
         }
 
     def __gt__(self, Status):
@@ -141,14 +145,14 @@ class Assets(db.Model):
 class Penalty(db.Model):
     __tablename__ = 'penalty'
     id = db.Column(db.Integer(), primary_key = True, nullable = False, unique = True)
-    name = db.Column(db.String(1000))
+    statement = db.Column(db.String(1000))
     value = db.Column(db.String(1000))
 
     @property
     def output(self):
         return {
             "id": self.id,
-            "name": self.name,
+            "statement": self.statement,
             "value": self.value
         }
 
@@ -156,13 +160,48 @@ class Penalty(db.Model):
 class Rewards(db.Model):
     __tablename__ = 'rewards'
     id = db.Column(db.Integer(), primary_key = True, nullable = False, unique = True)
-    name = db.Column(db.String(1000))
+    question = db.Column(db.String(1000))
+    a = db.Column(db.String(1000))
+    b = db.Column(db.String(1000))
+    c = db.Column(db.String(1000))
+    d = db.Column(db.String(1000))
+    ans = db.Column(db.String(1000))
     value = db.Column(db.String(1000))
 
     @property
     def output(self):
         return {
             "id": self.id,
-            "name": self.name,
+            "question": self.question,
+            "a": self.a,
+            "b": self.b,
+            "c": self.c,
+            "d": self.d,
+            "ans": self.ans,
             "value": self.value
+        }
+
+class Questions(db.Model):
+    __tablename__ = 'questions'
+    id = db.Column(db.Integer(), primary_key = True, nullable = False, unique = True)
+    question = db.Column(db.LargeBinary)
+    test_case1 = db.Column(db.String(1000))
+    test_case2 = db.Column(db.String(1000))
+    test_case3 = db.Column(db.String(1000))
+    out1 = db.Column(db.String(1000))
+    out2 = db.Column(db.String(1000))
+    out3 = db.Column(db.String(1000))
+    level = db.Column(db.String(1000))
+
+    @property
+    def output(self):
+        return {
+            "id": self.id,
+            "test_case1": self.test_case1,
+            "test_case2": self.test_case2,
+            "test_case3": self.test_case3,
+            "out1": self.out1,
+            "out2": self.out2,
+            "out3": self.out3,
+            "level": self.level,
         }

@@ -33,7 +33,7 @@ class Create_Team(Resource):
             db.session.add(transaction)
             db.session.commit()
             
-            status = Status(team_id = args['team_id'], position = 0, cash = '100', net_worth = '100')
+            status = Status(team_id = args['team_id'], position = 0, cash = '100', net_worth = '100', rewards_ques = 'NONE', coding_ques = 'NONE')
             db.session.add(status)
             db.session.commit()
             return Teams.query.filter_by(team_id = args['team_id']).first().output, 201

@@ -11,9 +11,9 @@ CORS(app)
 main_dir = os.path.abspath(os.path.dirname(__file__))
 dir = os.path.join(main_dir, 'DigiCertGlobalRootCA.crt.pem')
 
-# app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///techopoly.db"
-app.config['SQLALCHEMY_DATABASE_URI'] = f"mysql+pymysql://sweetcovet:Ul$k4445MmVv@techopoly-db.mysql.database.azure.com/techopoly?ssl_ca={dir}"
-app.config['SECRET_KEY'] = 'lsfdsaf4s2e1fsef45d2f5e12sdf4%##BG67()&#6'
+app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///techopoly.db"
+# app.config['SQLALCHEMY_DATABASE_URI'] = f"mysql+pymysql://sweetcovet:Ul$k4445MmVv@techopoly-db.mysql.database.azure.com/techopoly?ssl_ca={dir}"
+# app.config['SECRET_KEY'] = 'lsfdsaf4s2e1fsef45d2f5e12sdf4%##BG67()&#6'
 
 db = SQLAlchemy(app)
 # to create an instance of db follow the code given below once:
