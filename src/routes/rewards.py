@@ -26,10 +26,10 @@ class Rewards_All(Resource):
         rewards = Rewards.query.all()
         return rewards[-1].output
 
-class Rewards_Id(Resource):
-    def get(self, name):
-        reward = Rewards.query.filter_by(name = name).first()
-        return reward.output
+# class Rewards_Id(Resource):
+#     def get(self, name):
+#         reward = Rewards.query.filter_by(name = name).first()
+#         return reward.output
 
 class Rewards_Team_Id(Resource):
     def get(self, team_id):
@@ -41,5 +41,5 @@ class Rewards_Team_Id(Resource):
         return rewards[k].output
 
 api.add_resource(Rewards_All, '/rewards')
-api.add_resource(Rewards_Id, '/rewards/<string:name>')
+# api.add_resource(Rewards_Id, '/rewards/<string:name>')
 api.add_resource(Rewards_Team_Id, '/rewards/teams/<string:team_id>')

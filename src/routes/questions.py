@@ -3,6 +3,8 @@ from src.models import Questions, Status
 from flask_restful import Resource, reqparse
 import werkzeug
 import random
+from flask import send_file
+from io import BytesIO
 
 create_question_details = reqparse.RequestParser()
 create_question_details.add_argument("test_case1", type=str, help="Provide Test Case 1")
@@ -37,6 +39,12 @@ class Questions_All(Resource):
         return questions[-1].output
 
 class Question_Image(Resource):
+    def get(self, id):
+        ques = Questions.query.filter_by(id = id).first()
+        if ques:
+            return send_file(BytesIO(ques.question), mimetype='image/png')
+        return {'message':'Question not found.'}, 404
+    
     def put(self, id):
         ques = Questions.query.filter_by(id = id).first()
         if ques:
@@ -45,7 +53,7 @@ class Question_Image(Resource):
             db.session.add(ques)
             db.session.commit()
             return {'message':f'Upload successfull: {args["question"].filename}'}, 201
-        return {'message':'Team not found.'}, 404
+        return {'message':'Question not found.'}, 404
 
 class Question_Team_Id(Resource):
     def get(self, team_id):
