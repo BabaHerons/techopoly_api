@@ -185,9 +185,9 @@ class Questions(db.Model):
     __tablename__ = 'questions'
     id = db.Column(db.Integer(), primary_key = True, nullable = False, unique = True)
     question = db.Column(db.LargeBinary)
-    test_case1 = db.Column(db.String(1000))
-    test_case2 = db.Column(db.String(1000))
-    test_case3 = db.Column(db.String(1000))
+    test_case1 = db.Column(db.String(10000))
+    test_case2 = db.Column(db.String(10000))
+    test_case3 = db.Column(db.String(10000))
     out1 = db.Column(db.String(1000))
     out2 = db.Column(db.String(1000))
     out3 = db.Column(db.String(1000))

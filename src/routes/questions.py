@@ -56,15 +56,16 @@ class Question_Image(Resource):
         return {'message':'Question not found.'}, 404
 
 class Question_Team_Id(Resource):
-    def get(self, team_id):
+    def get(self, team_id, level):
         status = Status.query.filter_by(team_id = team_id).first()
+        # ques = Questions.query.filter_by(level=level).all()
         ques = Questions.query.all()
-        k = random.randint(0, len(ques))
+        k = random.randint(0, len(ques)-1)
         while str(ques[k].id) in status.coding_ques.split(','):
-            k = random.randint(0, len(ques))
+            k = random.randint(0, len(ques))        
         return ques[k].output
 
 
 api.add_resource(Questions_All, '/questions')
 api.add_resource(Question_Image, '/questions/<int:id>')
-api.add_resource(Question_Team_Id, '/questions/teams/<string:team_id>')
+api.add_resource(Question_Team_Id, '/questions/teams/<string:team_id>/<string:level>')

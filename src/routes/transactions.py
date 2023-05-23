@@ -71,7 +71,7 @@ class Transaction(Resource):
         db.session.commit()
         
         status = Status.query.filter_by(team_id=team_id).first()
-        if int(status.cash) < 0:
+        if int(status.cash) <= 0:
             status.active = 'false'
             db.session.add(status)
             db.session.commit()
