@@ -141,6 +141,24 @@ class Assets(db.Model):
             "ques_level": self.ques_level
         }
 
+class Non_Assets(db.Model):
+    __tablename__ = 'non_assets'
+    id = db.Column(db.Integer(), primary_key = True, nullable = False, unique = True)
+    name = db.Column(db.String(1000))
+    box_index = db.Column(db.Integer(), nullable = False, unique = True)
+    value = db.Column(db.String(1000))
+    timeout = db.Column(db.String(1000))
+
+    @property
+    def output(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "box_index": self.box_index,
+            "value": self.value,
+            "timeout": self.timeout
+        }
+
 
 class Penalty(db.Model):
     __tablename__ = 'penalty'

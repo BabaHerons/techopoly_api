@@ -8,13 +8,15 @@ app = Flask(__name__)
 api = Api(app)
 CORS(app)
 
-
+# -------------------SQLITE---------------------
 # app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///techopoly.db"
 
+# -------------------AZURE---------------------
 main_dir = os.path.abspath(os.path.dirname(__file__))
 dir = os.path.join(main_dir, 'DigiCertGlobalRootCA.crt.pem')
 app.config['SQLALCHEMY_DATABASE_URI'] = f"mysql+pymysql://sweetcovet:Ul$k4445MmVv@techopoly-db.mysql.database.azure.com/techopoly-db?ssl_ca={dir}"
 
+# -------------------SHARED HOSTING---------------------
 # username = os.environ.get('remote_mysql_username')
 # password = os.environ.get('remote_mysql_password')
 # host = os.environ.get('remote_mysql_host')
@@ -31,4 +33,4 @@ db = SQLAlchemy(app)
 # now navigate into the instance folder (which is created be default)
 
 
-from src.routes import auth, teams, transactions, status, assets, rewards, penalty, players, questions
+from src.routes import auth, teams, transactions, status, assets, rewards, penalty, players, questions, non_assets
