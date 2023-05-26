@@ -58,14 +58,34 @@ class Question_Image(Resource):
 class Question_Team_Id(Resource):
     def get(self, team_id, level):
         status = Status.query.filter_by(team_id = team_id).first()
-        # ques = Questions.query.filter_by(level=level).all()
-        ques = Questions.query.all()
+        ques = Questions.query.filter_by(level=level).all()
+        # ques = Questions.query.all()
         k = random.randint(0, len(ques)-1)
         while str(ques[k].id) in status.coding_ques.split(','):
             k = random.randint(0, len(ques))        
         return ques[k].output
 
+class Question_Edit(Resource):
+    def put(self, id):
+        args = create_question_details.parse_args()
+        ques = Questions.query.filter_by(id = id).first()
+        if ques:
+            ques.test_case1 = args['test_case1']
+            ques.test_case2 = args['test_case2']
+            ques.test_case3 = args['test_case3']
+            ques.out1 = args['out1']
+            ques.out2 = args['out2']
+            ques.out3 = args['out3']
+            ques.level = args['level']
+            db.session.add(ques)
+            db.session.commit()
+
+            ques = Questions.query.filter_by(id = id).first()
+            return ques.output
+        return {'message':'Question not found.'}, 404
+    
 
 api.add_resource(Questions_All, '/questions')
 api.add_resource(Question_Image, '/questions/<int:id>')
 api.add_resource(Question_Team_Id, '/questions/teams/<string:team_id>/<string:level>')
+api.add_resource(Question_Edit, '/questions/edit/<int:id>')
