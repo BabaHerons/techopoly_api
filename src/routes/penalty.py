@@ -26,7 +26,7 @@ class Penalty_All(Resource):
 class Penalty_Random(Resource):
     def get(self):
         penalty = Penalty.query.all()
-        k = random.randint(0,len(penalty))
+        k = random.randint(0,len(penalty)-1)
         return penalty[k].output
 
 
