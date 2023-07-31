@@ -1,6 +1,15 @@
 from src import db
 import time
 
+# from datetime import datetime
+# from pytz import timezone
+
+# now = datetime.now(timezone('Asia/Kolkata'))
+# print(now.date())
+# print(now.time())
+
+
+
 class Teams(db.Model):
     __tablename__ = 'teams'
     id = db.Column(db.Integer(), primary_key = True, nullable = False, unique = True)
